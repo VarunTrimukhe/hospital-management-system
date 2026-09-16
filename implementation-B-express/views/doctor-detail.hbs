@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="profile-head">
+    <div class="avatar">{{doctor.initials}}</div>
+    <div>
+      <h2 style="margin:0">{{doctor.name}}</h2>
+      <p class="muted" style="margin:2px 0 0">{{doctor.qualification}} · {{doctor.specialization}}</p>
+    </div>
+    <span style="margin-left:auto">
+      {{#if doctor.available}}
+        <span class="available">● Available</span>
+      {{else}}
+        <span class="onleave">● On leave</span>
+      {{/if}}
+    </span>
+  </div>
+  <div class="info-grid">
+    <div class="info"><div class="k">Experience</div><strong>{{doctor.experience}} years</strong></div>
+    <div class="info"><div class="k">Fee</div><strong>₹{{doctor.fee}}</strong></div>
+    <div class="info"><div class="k">Room</div>{{doctor.room}}</div>
+    <div class="info"><div class="k">OPD hours</div>{{doctor.time}}</div>
+    <div class="info"><div class="k">OPD days</div>{{doctor.days}}</div>
+    <div class="info"><div class="k">Phone</div>{{doctor.phone}}</div>
+  </div>
+  {{#if doctor.available}}
+  {{else}}
+    <p class="alert alert-warn">Note: {{doctor.name}} is currently on leave — new bookings are paused.</p>
+  {{/if}}
+  <p style="margin:14px 0 0"><a class="btn btn-secondary btn-small" href="/doctors">← Back to doctors</a></p>
+</div>
+
+<div class="section-head"><h3>Appointments · {{doctorAppointments.length}}</h3><span>{{doctor.name}}</span></div>
+
+{{#if doctorAppointments.length}}
+<div class="table-wrap"><table>
+  <thead><tr><th>ID</th><th>Date</th><th>Patient</th><th>Reason</th><th>Status</th></tr></thead>
+  <tbody>
+    {{#each doctorAppointments}}
+      <tr>
+        <td><strong>#{{this.id}}</strong></td>
+        <td style="white-space:nowrap">{{formatDate this.date}}<br /><small class="muted">{{this.time}}</small></td>
+        <td><a href="/patient/{{this.patient.id}}">{{this.patient.name}}</a></td>
+        <td>{{this.reason}}</td>
+        <td><span class="badge {{statusClass this.status}}">{{this.status}}</span></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table></div>
+{{else}}
+  <div class="card"><p class="muted">No appointments scheduled for this doctor.</p></div>
+{{/if}}

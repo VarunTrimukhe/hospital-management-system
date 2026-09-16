@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="profile-head">
+    <div class="avatar">{{patient.initials}}</div>
+    <div>
+      <h2 style="margin:0">{{patient.name}}</h2>
+      <p class="muted" style="margin:2px 0 0">Patient ID #{{patient.id}} · {{patient.gender}}, {{patient.age}} yrs · Blood {{patient.bloodGroup}}</p>
+    </div>
+  </div>
+  <div class="info-grid">
+    <div class="info"><div class="k">Phone</div>{{patient.phone}}</div>
+    <div class="info"><div class="k">Address</div>{{patient.address}}</div>
+    <div class="info"><div class="k">Visits on file</div><strong>{{patientAppointments.length}}</strong></div>
+  </div>
+  <p style="margin:14px 0 0"><a class="btn btn-secondary btn-small" href="/appointments">View full register</a></p>
+</div>
+
+<div class="section-head"><h3>Appointment history · {{patientAppointments.length}}</h3><span>{{patient.name}}</span></div>
+
+{{#if patientAppointments.length}}
+<div class="table-wrap"><table>
+  <thead><tr><th>ID</th><th>Date</th><th>Doctor</th><th>Reason</th><th>Status</th></tr></thead>
+  <tbody>
+    {{#each patientAppointments}}
+      <tr>
+        <td><strong>#{{this.id}}</strong></td>
+        <td style="white-space:nowrap">{{formatDate this.date}}<br /><small class="muted">{{this.time}}</small></td>
+        <td><a href="/doctor/{{this.doctor.id}}">{{this.doctor.name}}</a><br /><small class="muted">{{this.doctor.specialization}}</small></td>
+        <td>{{this.reason}}</td>
+        <td><span class="badge {{statusClass this.status}}">{{this.status}}</span></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table></div>
+{{else}}
+  <div class="card"><p class="muted">No appointments found for this patient.</p></div>
+{{/if}}

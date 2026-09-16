@@ -1,0 +1,41 @@
+<section class="hero">
+  <h2>Quality care, well-organised visits.</h2>
+  <p>Book and track consultations across {{doctorCount}} specialists.</p>
+  <div class="hero-actions">
+    <a class="btn" href="/doctors">Find a doctor</a>
+    <a class="btn btn-secondary" href="/appointments">View appointments</a>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="n">{{doctorCount}}</div><div class="l">Specialists</div></div>
+  <div class="stat"><div class="n">{{patientCount}}</div><div class="l">Patients</div></div>
+  <div class="stat"><div class="n">{{appointmentCount}}</div><div class="l">Appointments</div></div>
+  <div class="stat"><div class="n">{{confirmedCount}}</div><div class="l">Confirmed</div></div>
+</div>
+
+<div class="section-head"><h3>Featured specialists</h3><span><a href="/doctors">View all {{doctorCount}} →</a></span></div>
+
+{{!-- Simple {{#each}} loop over the preview list passed from the server --}}
+<div class="grid">
+  {{#each doctorsPreview}}
+    <div class="card doctor-card">
+      <div class="doctor-top">
+        <div class="avatar">{{this.initials}}</div>
+        <div><h4>{{this.name}}</h4><p class="spec">{{this.specialization}}</p></div>
+      </div>
+      {{!-- Simple conditional: available or on leave --}}
+      {{#if this.available}}
+        <p class="meta"><span class="available">● Available</span> · {{this.experience}} yrs exp · ₹{{this.fee}}</p>
+      {{else}}
+        <p class="meta"><span class="onleave">● On leave</span> · {{this.experience}} yrs exp · ₹{{this.fee}}</p>
+      {{/if}}
+      <p style="margin:6px 0 0"><a class="btn btn-small" href="/doctor/{{this.id}}">View profile</a></p>
+    </div>
+  {{/each}}
+</div>
+
+<div class="card" style="margin-top:14px">
+  <h3>Today at a glance</h3>
+  <p class="muted" style="margin:4px 0 0;font-size:14px">Confirmed <strong>{{confirmedCount}}</strong> · Pending <strong>{{pendingCount}}</strong> · Completed <strong>{{completedCount}}</strong> · Cancelled <strong>{{cancelledCount}}</strong> — <a href="/appointments">open the register</a>.</p>
+</div>

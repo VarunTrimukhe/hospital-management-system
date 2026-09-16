@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm install",
+  "devCommand": "node app.js",
+  "installCommand": "npm install",
+  "framework": "express",
+  "regions": ["iad1"],
+  "routes": [
+    { "src": "/(.*)", "dest": "/app.js" }
+  ]
+}

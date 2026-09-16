@@ -1,0 +1,45 @@
+<div class="card">
+  <h2>Appointments</h2>
+  <div class="filters">
+    {{!-- Loop + conditional: highlight the active filter --}}
+    {{#each statuses}}
+      {{#if (eq this ../activeStatus)}}
+        <span class="btn btn-active btn-small">{{this}}</span>
+      {{else}}
+        {{#if (eq this "All")}}
+          <a class="btn btn-secondary btn-small" href="/appointments">{{this}}</a>
+        {{else}}
+          <a class="btn btn-secondary btn-small" href="/appointments?status={{this}}">{{this}}</a>
+        {{/if}}
+      {{/if}}
+    {{/each}}
+  </div>
+</div>
+
+{{#if appointments.length}}
+<div class="table-wrap"><table>
+  <thead><tr><th>ID</th><th>Date</th><th>Doctor</th><th>Patient</th><th>Reason</th><th>Status</th></tr></thead>
+  <tbody>
+    {{#each appointments}}
+      <tr>
+        <td><strong>#{{this.id}}</strong></td>
+        <td style="white-space:nowrap">{{formatDate this.date}}<br /><small class="muted">{{this.time}}</small></td>
+        <td><a href="/doctor/{{this.doctor.id}}">{{this.doctor.name}}</a><br /><small class="muted">{{this.doctor.specialization}}</small></td>
+        <td><a href="/patient/{{this.patient.id}}">{{this.patient.name}}</a></td>
+        <td>{{this.reason}}</td>
+        <td>
+          <span class="badge {{statusClass this.status}}">{{this.status}}</span>
+          {{#if (eq this.status "Pending")}}
+            <br /><small class="muted">Awaiting confirmation</small>
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table></div>
+{{else}}
+  <div class="card">
+    <p class="muted">No appointments found for this filter.</p>
+    <p><a class="btn btn-small" href="/appointments">Clear filter</a></p>
+  </div>
+{{/if}}

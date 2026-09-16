@@ -1,0 +1,25 @@
+<div class="card">
+  <h2>Our doctors</h2>
+</div>
+
+{{!-- {{#each}} loop; the {{else}} block shows when the list is empty --}}
+<div class="grid">
+  {{#each doctors}}
+    <div class="card doctor-card">
+      <div class="doctor-top">
+        <div class="avatar">{{this.initials}}</div>
+        <div><h4>{{this.name}}</h4><p class="spec">{{this.specialization}} · {{this.qualification}}</p></div>
+      </div>
+      <p class="meta">{{this.experience}} yrs exp · ₹{{this.fee}} · {{this.room}}</p>
+      <p class="meta"><small>OPD</small> {{this.time}} · {{this.days}}</p>
+      {{#if this.available}}
+        <p class="meta"><span class="available">● Available</span></p>
+      {{else}}
+        <p class="meta"><span class="onleave">● On leave</span></p>
+      {{/if}}
+      <p style="margin:6px 0 0"><a class="btn btn-small" href="/doctor/{{this.id}}">View profile</a></p>
+    </div>
+  {{else}}
+    <div class="card"><p class="muted">No doctors found.</p></div>
+  {{/each}}
+</div>

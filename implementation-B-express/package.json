@@ -1,0 +1,14 @@
+{
+  "name": "south-indian-hospital-express",
+  "version": "1.0.0",
+  "description": "Hospital appointment management — built with Express.js and Handlebars.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.22.3",
+    "express-handlebars": "^7.1.2"
+  },
+  "license": "ISC"
+}
